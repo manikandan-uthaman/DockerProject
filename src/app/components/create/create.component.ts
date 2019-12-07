@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/service/task.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -8,7 +9,7 @@ import { TaskService } from 'src/app/service/task.service';
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private _taskService: TaskService) { }
+  constructor(private _taskService: TaskService, private _router: Router) { }
 
   ngOnInit() {
   }
@@ -22,4 +23,7 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  returnToHome(){
+    this._router.navigate(["/home"]);
+  }
 }
