@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/service/task.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,24 +20,8 @@ export class HomeComponent implements OnInit {
     "code": "COMPLETED",
     "name": "Completed"
   }];
-  constructor(private _taskService: TaskService) { 
+  constructor(private _taskService: TaskService, private _router: Router) { 
     console.log(this._taskService.getTasks());
-    // this.taskList = [{
-    //   'name': 'Task-1',
-    //   'description': 'First Task',
-    //   'targetDate': '12-12-2019',
-    //   'status': 'Not Started'
-    // }, {
-    //   'name': 'Task-2',
-    //   'description': 'Second Task',
-    //   'targetDate': '23-01-2020',
-    //   'status': 'In Progress'
-    // }, {
-    //   'name': 'Task-3',
-    //   'description': 'Third Task',
-    //   'targetDate': '08-02-2020',
-    //   'status': 'Not Started'
-    // }];
   }
 
   ngOnInit() {
@@ -44,4 +29,7 @@ export class HomeComponent implements OnInit {
     this.taskList = this._taskService.taskList;
   }
 
+  navigateToCreate(){
+    this._router.navigate(["/create"]);
+  }
 }
