@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/service/task.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -9,17 +10,26 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private _taskService: TaskService, private _router: Router) { }
+  createTaskForm: FormGroup;
+
+  constructor(private _taskService: TaskService, private _router: Router, private _fb: FormBuilder) { 
+    this.createTaskForm = this._fb.group({
+      taskName: ['', Validators.required],
+      taskDescription: ['', [Validators.required, Validators.max(1000)]],
+      targetDate: ['', Validators.required],
+      taskStatus: ['NOT_STARTED', Validators.required]
+    });
+  }
 
   ngOnInit() {
   }
 
   createTask(){
-    this._taskService.createTask({
-      'name': 'Task-4',
-      'description': 'Fourth Task',
-      'targetDate': '12-12-2019',
-      'status': 'Not Started'
+    console.log(this.createTaskForm.value);
+    this._taskService.createTask(this.createTaskForm.value).subscribe((res) => {
+      this._router.navigate(["/home"]);
+    }, (err) => {
+      console.log(err);
     });
   }
 

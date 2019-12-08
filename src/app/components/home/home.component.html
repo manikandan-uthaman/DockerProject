@@ -25,12 +25,12 @@
         <tbody>
           <tr *ngFor="let task of taskList; let i=index">
             <th scope="row">{{i+1}}</th>
-            <td>{{task.name}}</td>
-            <td>{{task.description}}</td>
+            <td>{{task.taskName}}</td>
+            <td>{{task.taskDescription}}</td>
             <td>{{task.targetDate}}</td>
             <td>
                 <select class="form-control" id="status">
-                    <option *ngFor="let s of status" [value]="s.code" [selected]="task.status == s.code">{{s.name}}</option>
+                    <option *ngFor="let s of status" [value]="s.code" [selected]="task.taskStatus == s.code">{{s.name}}</option>
                 </select>
             </td>
             <td>

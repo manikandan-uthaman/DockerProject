@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  taskList: Array<any>;
+  taskList;
+  
   status = [{
     "code": "NOT_STARTED",
     "name": "Not Started"
@@ -20,14 +21,13 @@ export class HomeComponent implements OnInit {
     "code": "COMPLETED",
     "name": "Completed"
   }];
-  constructor(private _taskService: TaskService, private _router: Router) { 
-    console.log(this._taskService.getTasks());
+  constructor(private _taskService: TaskService, private _router: Router) {
+  this._taskService.getTasks().subscribe((res) => {
+      this.taskList = res;
+    });
   }
 
-  ngOnInit() {
-    console.log(this._taskService.getTasks());
-    this.taskList = this._taskService.taskList;
-  }
+  ngOnInit() { }
 
   navigateToCreate(){
     this._router.navigate(["/create"]);

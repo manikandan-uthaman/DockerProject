@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -6,30 +7,13 @@ import { Injectable } from '@angular/core';
 export class TaskService {
   taskList: Array<any>
 
-  constructor() { 
-    this.taskList = [{
-      'name': 'Task-1',
-      'description': 'First Task',
-      'targetDate': '12-12-2019',
-      'status': 'NOT_STARTED'
-    }, {
-      'name': 'Task-2',
-      'description': 'Second Task',
-      'targetDate': '23-01-2020',
-      'status': 'IN_PROGRESS'
-    }, {
-      'name': 'Task-3',
-      'description': 'Third Task',
-      'targetDate': '08-02-2020',
-      'status': 'COMPLETED'
-    }];
-  }
+  constructor(private _httpClient: HttpClient) {   }
 
-  createTask(task){
-    this.taskList.push(task);
-  }
+  createTask(task){ 
+    return this._httpClient.post("/to-do/task/add", task);
+   }
 
   getTasks(){
-    return this.taskList;
+    return this._httpClient.get("/to-do/task/get");
   }
 }
