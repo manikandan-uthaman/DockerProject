@@ -107,4 +107,11 @@ export class HomeComponent implements OnInit {
     }
     return false;
   }
+
+  getTaskDesc(taskDesc: string){
+    if(taskDesc && taskDesc.length > 25){
+      return taskDesc.substr(0, 25) + "...";
+    }
+    return taskDesc;
+  }
 }

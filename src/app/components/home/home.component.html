@@ -29,7 +29,7 @@
         {{task.taskName}}
         <sup *ngIf="checkExpired(task)">*</sup>
       </td>
-      <td>{{task.taskDescription}}</td>
+      <td>{{getTaskDesc(task.taskDescription)}}</td>
       <td>{{task.targetDate}}</td>
       <td>
           <select class="form-control" id="status" #s (change)="updateTaskStatus(s.value, task)">
@@ -58,6 +58,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.close('CANCEL')">Cancel</button>
-    <button type="button" class="btn btn-dark" (click)="modal.close('OK')">Ok</button>
+    <button type="button" ngbAutofocus class="btn btn-dark" (click)="modal.close('OK')">OK</button>
   </div>
 </ng-template>
