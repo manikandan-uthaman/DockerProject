@@ -16,4 +16,12 @@ export class TaskService {
   getTasks(){
     return this._httpClient.get("/to-do/task/get");
   }
+
+  updateTaskStatus(task){
+    return this._httpClient.post("/to-do/task/update", task);
+  }
+
+  deleteTask(taskId){
+    return this._httpClient.get("/to-do/task/delete/" + taskId);
+  }
 }

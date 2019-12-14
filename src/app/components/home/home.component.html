@@ -1,43 +1,63 @@
 <div class="top-ribbon">
-  <button type="button" class="btn btn-dark" (click)="navigateToCreate()">
+  <button type="button" class="btn btn-dark" (click)="navigateToCreate(null)">
       <i class="fas fa-plus-circle"></i>
     Create
   </button>
 
   <div class="form-group has-search filter">
       <span class="fa fa-search form-control-feedback"></span>
-      <input type="text" class="form-control" placeholder="Search">
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchString">
     </div>
 
   <!-- <input class="filter form-control" placeholder="Filter.."> -->
 </div>
 <table class="table table-hover">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Target Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let task of taskList; let i=index">
-            <th scope="row">{{i+1}}</th>
-            <td>{{task.taskName}}</td>
-            <td>{{task.taskDescription}}</td>
-            <td>{{task.targetDate}}</td>
-            <td>
-                <select class="form-control" id="status">
-                    <option *ngFor="let s of status" [value]="s.code" [selected]="task.taskStatus == s.code">{{s.name}}</option>
-                </select>
-            </td>
-            <td>
-                <i class="fas fa-edit"></i>
-                &nbsp;
-                <i class="fas fa-trash-alt"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Target Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of taskList; let i=index" [hidden]="hideSearchResult(task)">
+      <th scope="row">{{i+1}}</th>
+      <td>
+        {{task.taskName}}
+        <sup *ngIf="checkExpired(task)">*</sup>
+      </td>
+      <td>{{task.taskDescription}}</td>
+      <td>{{task.targetDate}}</td>
+      <td>
+          <select class="form-control" id="status" #s (change)="updateTaskStatus(s.value, task)">
+              <option *ngFor="let s of status" [value]="s.code" [selected]="task.taskStatus == s.code">{{s.name}}</option>
+          </select>
+      </td>
+      <td>
+          <i class="fas fa-edit" (click)="navigateToCreate(task)"></i>
+          &nbsp;
+          <i class="fas fa-trash-alt" (click)="open(content, task.taskId)"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div>
+  <sup>*</sup>
+  <span> Task expired</span>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm</h4>
+  </div>
+  <div class="modal-body">
+    <span>Do you sure you want to delete the task?</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('CANCEL')">Cancel</button>
+    <button type="button" class="btn btn-dark" (click)="modal.close('OK')">Ok</button>
+  </div>
+</ng-template>

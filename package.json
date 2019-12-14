@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
+    "prod-build":"ng build --prod --baseHref='/todo' --deployUrl='/todo'",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,7 +21,10 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "@ng-bootstrap/ng-bootstrap": "^5.1.4",
     "bootstrap": "^4.4.1",
+    "ngx-mask": "^8.1.6",
+    "ngx-toastr": "^11.2.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
