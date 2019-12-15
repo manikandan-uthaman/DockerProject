@@ -30,8 +30,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() { 
-    if(history.state.status == 'SUCCESS'){
+    if(history.state.status == 'CREATED'){
       this._toasterService.success("Task created successfully!")
+    }else if(history.state.status == 'UPDATED'){
+      this._toasterService.success("Task updated successfully!")
     }
   }
 
