@@ -13,7 +13,7 @@ import { FileService } from 'src/app/service/file.service';
 export class CreateComponent implements OnInit {
 
   createTaskForm: FormGroup;
-  fileToUpload: File;
+  fileToUpload: File = null;
 
   constructor(private _taskService: TaskService, private _router: Router,
     private _fb: FormBuilder, private _toasterService: ToastrService, private _fileService: FileService) { 
@@ -35,8 +35,7 @@ export class CreateComponent implements OnInit {
     console.log(history.state.data);
   }
 
-  createTask(){
-    console.log(this.createTaskForm.value);
+  saveTask(){
     this._taskService.createTask(this.createTaskForm.value).subscribe((res) => {
       this._router.navigate(["/home"], {
         state: {
@@ -48,20 +47,31 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  createTask(){
+    console.log(this.createTaskForm.value);
+    if(this.fileToUpload != null){
+      this._fileService.uploadFile(this.fileToUpload).subscribe((res) => {
+        this.createTaskForm.controls['fileId'].setValue(res['file_id']);
+        this.createTaskForm.controls['fileName'].setValue(res['file_name']);
+        // this._toasterService.success("File uploaded successfully");
+        this.saveTask();
+      }, (err) => {
+        this._toasterService.error("Error while uploading file.");
+      });
+    } else {
+      this.saveTask();
+    }
+  }
+
   returnToHome(){
     this._router.navigate(["/home"]);
   }
 
   handleFileInput(files: FileList){
     this.fileToUpload = files.item(0);
-    this._fileService.uploadFile(this.fileToUpload, this.createTaskForm.controls['taskId'].value).subscribe((res) => {
-      this.createTaskForm.controls['fileId'].setValue(res['file_id']);
-      this.createTaskForm.controls['fileName'].setValue(res['file_name']);
-      this._toasterService.success("File uploaded successfully");
-    }, (err) => {
-      this._toasterService.error("Error while uploading file.");
-    })
-  }
+    this.createTaskForm.controls['fileId'].setValue('file_id');
+    this.createTaskForm.controls['fileName'].setValue(this.fileToUpload.name);
+}
 
   getFileId(){
     return this.createTaskForm.controls['fileId'].value;
