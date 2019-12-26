@@ -11,4 +11,8 @@ export class AuthService {
   login(loginRequest){
     return this._httpClient.post("/to-do/api/auth/signin", loginRequest);
   }
+  
+  signup(signupRequest){
+    return this._httpClient.post("/to-do/api/auth/signup", signupRequest);
+  }
 }

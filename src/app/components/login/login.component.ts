@@ -22,6 +22,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(history.state){
+      if(history.state.status == 'CREATED'){
+        this._toasterService.success("Account created successfully");
+      }else if(history.state.status == 'LOGOUT'){
+        this._toasterService.success("Logget out successfully");
+      }
+    }
+    localStorage.clear();
   }
 
   login(){
@@ -33,6 +41,10 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls['password'].setValue('');
       this._toasterService.error("Invalid Username or Password!");
     })
+  }
+  
+  routeToSignup(){
+    this._router.navigate(['/signup']);
   }
 
 }

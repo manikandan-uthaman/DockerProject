@@ -1,0 +1,17 @@
+.login-container{
+  position: relative;
+  float: right;
+  border: solid 3px #343a40;
+  border-radius: 5px;
+  margin-top: 5%;
+  width: 30%;
+}
+
+form{
+  margin: 15px; 
+}
+
+.required label::after{
+    content: ' *';
+}
+

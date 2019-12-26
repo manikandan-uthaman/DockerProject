@@ -1,0 +1,36 @@
+<div class="login-container">
+  <form [formGroup]="signupForm">
+      <div class="form-group">
+        <label for="name" class="col-form-label required">Name:</label>
+        <div>
+          <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="username" class="col-form-label required">Username:</label>
+        <div>
+          <input type="text" class="form-control" id="username" formControlName="username">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="col-form-label required">Email:</label>
+        <div>
+          <input type="text" class="form-control" id="email" formControlName="email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="col-form-label required">Password:</label>
+        <div>
+          <input type="password" class="form-control" id="password" formControlName="password">
+        </div>
+      </div>
+
+      <div class="form-group">
+          <button type="submit" class="btn btn-dark" [disabled]="!signupForm.valid" style="margin-right: 5px;" (click)="signup()">Signup</button>
+          <button class="btn btn-dark" (click)="returnToLogin()">Cancel</button>
+      </div>
+    </form>
+</div>

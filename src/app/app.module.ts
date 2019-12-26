@@ -16,6 +16,7 @@ import { CreateComponent } from './components/create/create.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { TokenInterceptorService } from './service/token-interceptor.service';
+import { SignupComponent } from './components/signup/signup.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -26,7 +27,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     HomeComponent,
     ContactComponent,
     CreateComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
