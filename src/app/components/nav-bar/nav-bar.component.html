@@ -1,4 +1,23 @@
 <nav class="navbar navbar-dark bg-dark nav-head">
     <a class="navbar-brand" href="#">TO-DO</a>
-    <a class="navbar-brand my-2 my-sm-0 logout" *ngIf="!hideLogout()" (click)="logout()">Logout</a>
+    <a class="navbar-brand my-2 my-sm-0 logout" *ngIf="!hideLogout() && userDetails">
+      Hello, {{ userDetails.name }}
+      <i class="fas fa-sign-out-alt" (click)="logout(content)"></i>
+    </a>
   </nav>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+      <!-- <button type="button" class="close" aria-label="Close" (click)="modal.close('cancel')">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to logout?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel')">Cancel</button>
+      <button type="button" class="btn btn-dark" ngbAutofocus (click)="modal.close('logout')">Logout</button>
+    </div>
+  </ng-template>

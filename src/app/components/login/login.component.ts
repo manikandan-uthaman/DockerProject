@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _authService: AuthService,
+  constructor(private _fb: FormBuilder, private _authService: AuthService, private _userService: UserService,
       private _toasterService: ToastrService, private _router: Router) { 
     this.loginForm = this._fb.group({
       username: ['', Validators.required],
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
       }
     }
     localStorage.clear();
+    this._userService.clearUser();
   }
 
   login(){

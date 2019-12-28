@@ -3,6 +3,7 @@ import { TaskService } from 'src/app/service/task.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-home',
@@ -24,12 +25,13 @@ export class HomeComponent implements OnInit {
     "code": "COMPLETED",
     "name": "Completed"
   }];
-  constructor(private _taskService: TaskService, private _router: Router,
+  constructor(private _taskService: TaskService, private _router: Router, private _userService: UserService,
               private _toasterService: ToastrService, private modalService: NgbModal) {
+    this._userService.getUser();
     this.loadTaskList();
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     if(history.state.status == 'CREATED'){
       this._toasterService.success("Task created successfully!")
     }else if(history.state.status == 'UPDATED'){
