@@ -17,7 +17,10 @@
       <div class="form-group">
         <label for="email" class="col-form-label required">Email:</label>
         <div>
-          <input type="text" class="form-control" id="email" formControlName="email">
+          <input type="email" class="form-control" id="email" formControlName="email">
+          <span *ngIf="signupForm.controls['email'].errors && signupForm.controls['email'].errors.pattern" style="color: #dc143c;">
+            Please enter a valid email
+          </span>
         </div>
       </div>
 
