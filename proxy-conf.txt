@@ -1,0 +1,15 @@
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+
+<VirtualHost *:80>
+	ProxyPreserveHost Off
+	ProxyRequests Off
+	ProxyPass "/to-do"  "http://todo-api:8080/to-do"
+	ProxyPassReverse "/to-do"  "http://todo-api:8080/to-do"
+	
+	<Proxy *>
+        Order deny,allow
+        Allow from all
+        Allow from localhost
+    </Proxy>
+</VirtualHost>
