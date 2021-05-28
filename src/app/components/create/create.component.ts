@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FileService } from 'src/app/service/file.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-create',
@@ -87,5 +88,14 @@ export class CreateComponent implements OnInit {
     }else {
       return "Create";
     }
+  }
+
+  downloadFile() {
+    this._fileService.downloadFile(this.getFileId()).subscribe((res) => {
+      console.log(res);
+      saveAs(res);
+    }, (err) => {
+      this._toasterService.error("Unable to download file.");
+    })
   }
 }

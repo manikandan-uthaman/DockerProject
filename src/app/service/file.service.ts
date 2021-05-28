@@ -14,4 +14,9 @@ export class FileService {
       formData.append('file', fileToUpload, fileToUpload.name);
       return this._httpClient.post(url, formData);
   }
+
+  downloadFile(fileId: String) {
+    const url = '/to-do/file/download/' + fileId;
+    return this._httpClient.get(url, {responseType: 'blob'});
+  }
 }
